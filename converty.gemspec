@@ -11,8 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Easily convert numbers between different units"
   spec.description   = <<~DESCRIPTION
     Require the Converty class and pass in a numerical value and the from and to units
-    to easily convert a number between different measurement systems. Currently supports
-    miles to kilometers."
+    to easily convert a number between different measurement systems. Currently supports distance and weight.
   DESCRIPTION
   spec.homepage      = "https://github.com/monoso/converty"
   spec.license       = "MIT"
