@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = "converty"
   spec.version       = Converty::VERSION
   spec.authors       = ["Brett Chalupa"]
-  spec.email         = ["brett@bigcartel.com"]
+  spec.email         = ["brett@monoso.co"]
 
   spec.summary       = "Easily convert numbers between different units"
   spec.description   = <<~DESCRIPTION
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
     to easily convert a number between different measurement systems. Currently supports
     miles to kilometers."
   DESCRIPTION
-  spec.homepage      = "https://github.com/brettchalupa/converty"
+  spec.homepage      = "https://github.com/monoso/converty"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
 
