@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "converty"
+
+args = {}
+OptionParser.new do |opts|
+  opts.banner = "Convert an amount between unit types\n\nUSAGE:\nconverty AMOUNT --from UNIT --to UNIT\nconverty 5 --from km --to mi --round 1\n\n"
+
+  opts.on("-f", "--from UNIT", "The unit of the unnamed, first amount argument")
+  opts.on("-t", "--to UNIT", "The unit to convert the amount to, must be of the same measurement type as the --from arg")
+  opts.on("-r", "--round DECIMAL_PLACES", "Optional argument for how many decimal places to round to")
+end.parse!(into: args)
+
+original_amount = ARGV[0]
+
+errors = []
+if original_amount.nil?
+  errors.push("amount parameter required")
+end
+if args[:from].nil?
+  errors.push("--from parameter required")
+end
+if args[:to].nil?
+  errors.push("--to parameter required")
+end
+if errors.any?
+  raise errors.join(", ")
+end
+
+amount = Converty.convert(original_amount, from: args[:from], to: args[:to])
+
+if round = args[:round]
+  amount = amount.round(round.to_i)
+end
+
+puts amount

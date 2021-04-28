@@ -6,6 +6,14 @@ RSpec.describe Converty do
   end
 
   describe ".convert" do
+    it "supports coercing from and to params to symbols" do
+      expect(Converty.convert(3.1, from: "mi", to: "km").round(1)).to eql(5.0)
+    end
+
+    it "supports coercing amount from a string" do
+      expect(Converty.convert("3.1", from: "mi", to: "km").round(1)).to eql(5.0)
+    end
+
     context "when converting distance" do
       it "supports miles to kilometers" do
         expect(Converty.convert(3.1, from: :mi, to: :km).round(1)).to eql(5.0)

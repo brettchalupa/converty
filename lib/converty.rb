@@ -67,6 +67,9 @@ module Converty
   #  Converty.convert(5, from: :km, to: :mi).round(1) => 3.1
   #  Converty.convert(16, from: :oz, to: :lb) => 1.0
   def self.convert(amount, from:, to:)
+    amount = amount.to_f
+    from = from.to_sym
+    to = to.to_sym
     to_unit = UNITS[to]
     from_unit = UNITS[from]
 
