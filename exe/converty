@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../lib/converty"
+require "optparse"
+
+args = {}
+OptionParser.new do |opts|
+  opts.banner = "Convert between different units of the same measurement type\n\nUsage: converty 5 --from km --to mi [options]"
+
+  opts.on("-f", "--from UNIT", "The unit to convert from")
+  opts.on("-t", "--to UNIT", "The unit to convert to, must be the same measurement type as the from arg")
+  opts.on("-r", "--round DECIMAL_PLACES", "How many decimal places to round to")
+end.parse!(into: args)
+
+amount = ARGV[0]
+
+errors = []
+
+if amount.nil?
+  errors.push("amount arg is required")
+end
+
+if args[:to].nil?
+  errors.push("--to arg is required")
+end
+
+if args[:from].nil?
+  errors.push("--from arg is required")
+end
+
+if errors.any?
+  raise errors.join(", ")
+end
+
+amount = Converty.convert(amount, from: args[:from], to: args[:to])
+
+if round = args[:round]
+  amount = amount.round(round.to_i)
+end
+
+puts amount
