@@ -16,26 +16,14 @@ end.parse!(into: args)
 amount = ARGV[0]
 
 errors = []
-
-if amount.nil?
-  errors.push("amount arg is required")
-end
-
-if args[:to].nil?
-  errors.push("--to arg is required")
-end
-
-if args[:from].nil?
-  errors.push("--from arg is required")
-end
-
-if errors.any?
-  raise errors.join(", ")
-end
+errors.push("amount arg is required") if amount.nil?
+errors.push("--to arg is required") if args[:to].nil?
+errors.push("--from arg is required") if args[:from].nil?
+raise errors.join(", ") if errors.any?
 
 amount = Converty.convert(amount, from: args[:from], to: args[:to])
 
-if round = args[:round]
+if (round = args[:round])
   amount = amount.round(round.to_i)
 end
 

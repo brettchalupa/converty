@@ -67,25 +67,40 @@ module Converty
   #  Converty.convert(5, from: :km, to: :mi).round(1) => 3.1
   #  Converty.convert(16, from: :oz, to: :lb) => 1.0
   def self.convert(amount, from:, to:)
-    amount = amount.to_f
-    from = from.to_sym
-    to = to.to_sym
+    Converter.new(amount, from: from, to: to).convert
+  end
 
-    to_unit = UNITS[to]
-    from_unit = UNITS[from]
+  # :nodoc: all
+  class Converter
+    def initialize(amount, from:, to:)
+      @amount = amount.to_f
+      @from = from.to_sym
+      @to = to.to_sym
+      @to_unit = Converty::UNITS[@to]
+      @from_unit = Converty::UNITS[@from]
 
-    if to_unit.nil? || from_unit.nil?
+      validate_units_exist!
+      validate_units_type_match!
+    end
+
+    def convert
+      in_base = @from_unit[:base_per] * @amount
+      in_base / @to_unit[:base_per]
+    end
+
+    private
+
+    def validate_units_exist!
+      return unless @to_unit.nil? || @from_unit.nil?
+
       invalid_units = []
-      invalid_units.push(from) if from_unit.nil?
-      invalid_units.push(to) if to_unit.nil?
+      invalid_units.push(@from) if @from_unit.nil?
+      invalid_units.push(@to) if @to_unit.nil?
       raise UnitError.new(invalid_units)
     end
 
-    if to_unit.fetch(:type) != from_unit.fetch(:type)
-      raise CantConvertError.new(from, to)
+    def validate_units_type_match!
+      raise CantConvertError.new(@from, @to) if @to_unit.fetch(:type) != @from_unit.fetch(:type)
     end
-
-    in_base = from_unit[:base_per] * amount
-    in_base / to_unit[:base_per]
   end
 end

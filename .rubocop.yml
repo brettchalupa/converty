@@ -1,5 +1,13 @@
 AllCops:
   TargetRubyVersion: 2.5
+  SuggestExtensions: false
+  NewCops: enable
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
 
 Style/StringLiterals:
   Enabled: true
@@ -10,4 +18,11 @@ Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
 Layout/LineLength:
-  Max: 120
+  Max: 200
+
+Metrics/BlockLength:
+  Exclude:
+   - "spec/*"
+
+Metrics/MethodLength:
+  Max: 20

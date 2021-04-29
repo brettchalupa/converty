@@ -11,7 +11,7 @@ RSpec.describe Converty do
       expect(Converty.convert("5", from: "km", to: "mi").round(1)).to eql(3.1)
     end
 
-    it "supports string from and to args to symbols" do
+    it "supports converting string from and to args to symbols" do
       expect(Converty.convert(3.1, from: "mi", to: "km").round(1)).to eql(5.0)
     end
 
@@ -29,8 +29,8 @@ RSpec.describe Converty do
       end
 
       it "supports miles to feet" do
-        expect(Converty.convert(1, from: :mi, to: :ft).round(1)).to eql(5280.0)
-        expect(Converty.convert(5, from: :mi, to: :ft).round(1)).to eql(26400.0)
+        expect(Converty.convert(1, from: :mi, to: :ft).round(1)).to eql(5_280.0)
+        expect(Converty.convert(5, from: :mi, to: :ft).round(1)).to eql(26_400.0)
       end
 
       it "supports feet to miles" do
